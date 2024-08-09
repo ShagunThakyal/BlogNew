@@ -7,6 +7,8 @@ const Register = () => {
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
+    const apiUrl = import.meta.env.VITE_API_URL;
+
 
     const navigate = useNavigate();
 
@@ -35,7 +37,7 @@ const Register = () => {
                     formData.append("avatar", formValues.avatar);
                 }
 
-                const response = await fetch(`http://localhost:3000/api/v1/user/register`, {
+                const response = await fetch(`${apiUrl}/user/register`, {
                     method: "POST",
                     body: formData,
                 });

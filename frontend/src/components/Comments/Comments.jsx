@@ -7,6 +7,8 @@ const Comments = ({ blogId, accessToken, userId }) => {
     const [commentContent, setCommentContent] = useState('');
     const [authors, setAuthors] = useState({});
     const [showComments, setShowComments] = useState(false); // State to manage comments visibility
+    const apiUrl = import.meta.env.VITE_API_URL;
+
 
     useEffect(() => {
         if (!accessToken) {
@@ -16,7 +18,7 @@ const Comments = ({ blogId, accessToken, userId }) => {
 
         const fetchComments = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/comment/${blogId}`, {
+                const response = await fetch(`${apiUrl}/comment/${blogId}`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${accessToken}`
@@ -46,7 +48,7 @@ const Comments = ({ blogId, accessToken, userId }) => {
 
             for (const id of authorIds) {
                 try {
-                    const response = await fetch(`http://localhost:3000/api/v1/user/${id}`, {
+                    const response = await fetch(`${apiUrl}/user/${id}`, {
                         method: "GET",
                         headers: {
                             "Authorization": `Bearer ${accessToken}`
@@ -75,7 +77,7 @@ const Comments = ({ blogId, accessToken, userId }) => {
         if (!commentContent) return;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/comment/${blogId}`, {
+            const response = await fetch(`${apiUrl}/comment/${blogId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -103,7 +105,7 @@ const Comments = ({ blogId, accessToken, userId }) => {
 
     const handleDeleteComment = async (commentId) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/comment/${commentId}`, {
+            const response = await fetch(`${apiUrl}/comment/${commentId}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`

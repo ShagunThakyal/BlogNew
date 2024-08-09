@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaSignInAlt } from 'react-icons/fa';
+// import dotenv from "dotenv"
+// const dotenv = require("dotenv");
+
 
 const Login = () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const initialValues = { username: "", email: "", password: "" };
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
@@ -21,7 +25,7 @@ const Login = () => {
 
         if (Object.keys(formErrors).length === 0) {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/user/login`, {
+                const response = await fetch(`${apiUrl}/user/login`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -51,6 +55,7 @@ const Login = () => {
                 console.log("Error while logging in", error);
                 setFormErrors({ apiError: "An error occurred during login" });
             }
+            window.location.reload();
         }
     };
 

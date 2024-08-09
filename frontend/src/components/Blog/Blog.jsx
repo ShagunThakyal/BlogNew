@@ -6,6 +6,8 @@ function Blog() {
     const accessToken = localStorage.getItem('accessToken');
     const [blogs, setBlogs] = useState([]);
     const [userId, setUserId] = useState(null);
+    const apiUrl = import.meta.env.VITE_API_URL;
+
 
     useEffect(() => {
         if (!accessToken) {
@@ -15,7 +17,7 @@ function Blog() {
 
         const fetchBlogs = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/blog`, {
+                const response = await fetch(`${apiUrl}/blog`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${accessToken}`
@@ -35,7 +37,7 @@ function Blog() {
 
         const fetchUserId = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/user/current-user`, {
+                const response = await fetch(`${apiUrl}/user/current-user`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${accessToken}`

@@ -6,6 +6,8 @@ const CreateBlog = () => {
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
+    const apiUrl = import.meta.env.VITE_API_URL;
+
 
     const navigate = useNavigate();
     const handleChange = (e) => {
@@ -33,7 +35,7 @@ const CreateBlog = () => {
                 formData.append('category', formValues.category);
                 formData.append('image', document.querySelector('input[name="image"]').files[0]);
 
-                const response = await fetch(`http://localhost:3000/api/v1/blog`, {
+                const response = await fetch(`${apiUrl}/blog`, {
                     method: "POST",
                     headers: {
                         "Authorization": `Bearer ${accessToken}`

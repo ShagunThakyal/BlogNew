@@ -7,6 +7,8 @@ export default function EditProfile() {
   const [bio, setBio] = useState('');
   const [role, setRole] = useState('');
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -14,7 +16,7 @@ export default function EditProfile() {
       if (!accessToken) return;
 
       try {
-        const response = await fetch('http://localhost:3000/api/v1/user/current-user', {
+        const response = await fetch(`${apiUrl}/user/current-user`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${accessToken}`,
@@ -44,7 +46,7 @@ export default function EditProfile() {
     if (!accessToken) return;
 
     try {
-      const response = await fetch('http://localhost:3000/api/v1/user/update-account', {
+      const response = await fetch(`${apiUrl}/user/update-account`, {
         method: 'PATCH',
         headers: {
           "Authorization": `Bearer ${accessToken}`,

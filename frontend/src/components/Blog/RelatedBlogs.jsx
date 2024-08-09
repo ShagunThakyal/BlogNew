@@ -6,11 +6,13 @@ function RelatedBlogs({ category, currentBlogId }) {
     const accessToken = localStorage.getItem('accessToken');
     const [blogs, setBlogs] = useState([]);
     const [authors, setAuthors] = useState({}); // Store authors in an object with blog ID as key
+    const apiUrl = import.meta.env.VITE_API_URL;
+
 
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/v1/blog', {
+                const response = await fetch(`${apiUrl}/blog`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${accessToken}`
@@ -36,7 +38,7 @@ function RelatedBlogs({ category, currentBlogId }) {
             for (const blog of blogs) {
                 if (blog.author) {
                     try {
-                        const response = await fetch(`http://localhost:3000/api/v1/user/${blog.author}`, {
+                        const response = await fetch(`${apiUrl}/user/${blog.author}`, {
                             method: "GET",
                             headers: {
                                 "Authorization": `Bearer ${accessToken}`

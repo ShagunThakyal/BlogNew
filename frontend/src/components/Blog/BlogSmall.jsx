@@ -5,6 +5,8 @@ function BlogSmall({ searchQuery = '' }) {
   const accessToken = localStorage.getItem('accessToken');
   const [blogs, setBlogs] = useState([]);
   const [authors, setAuthors] = useState({});
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     if (!accessToken) {
@@ -14,7 +16,7 @@ function BlogSmall({ searchQuery = '' }) {
 
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/blog', {
+        const response = await fetch(`${apiUrl}/blog`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${accessToken}`
@@ -40,7 +42,7 @@ function BlogSmall({ searchQuery = '' }) {
       for (const blog of blogs) {
         if (blog.author) {
           try {
-            const response = await fetch(`http://localhost:3000/api/v1/user/${blog.author}`, {
+            const response = await fetch(`${apiUrl}/user/${blog.author}`, {
               method: "GET",
               headers: {
                 "Authorization": `Bearer ${accessToken}`
@@ -118,8 +120,12 @@ function BlogSmall({ searchQuery = '' }) {
               <div className='flex items-center w-full lg:w-1/3'>
                 <img className='h-[200px] w-full object-cover' src={blog.image} alt={blog.title} />
               </div>
+
             </div>
+            <div className='border-t-4 border-gray-200 w-auto my-4 lg:my-8 block'></div>
+
           </NavLink>
+          
         ))
       ) : (
         <p>No blogs available for this search query</p>

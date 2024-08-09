@@ -10,6 +10,8 @@ function MyBlogs() {
   const [hoveredBlogId, setHoveredBlogId] = useState(null);
   const [confirmDeleteBlogId, setConfirmDeleteBlogId] = useState(null);
   const navigate = useNavigate(); // Added to navigate programmatically
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -19,7 +21,7 @@ function MyBlogs() {
       }
 
       try {
-        const response = await fetch('http://localhost:3000/api/v1/user/current-user', {
+        const response = await fetch(`${apiUrl}/user/current-user`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -49,7 +51,7 @@ function MyBlogs() {
 
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/blog', {
+        const response = await fetch(`${apiUrl}/blog`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -75,7 +77,7 @@ function MyBlogs() {
       for (const blog of blogs) {
         if (blog.author) {
           try {
-            const response = await fetch(`http://localhost:3000/api/v1/user/${blog.author}`, {
+            const response = await fetch(`${apiUrl}/user/${blog.author}`, {
               method: 'GET',
               headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -124,7 +126,7 @@ function MyBlogs() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/blog/${blogId}`, {
+      const response = await fetch(`${apiUrl}/blog/${blogId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${accessToken}`,

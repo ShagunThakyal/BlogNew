@@ -4,6 +4,7 @@ import MyBlogs from '../Blog/MyBlogs.jsx';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -11,7 +12,7 @@ export default function Profile() {
       if (!accessToken) return;
 
       try {
-        const response = await fetch('http://localhost:3000/api/v1/user/current-user', {
+        const response = await fetch(`${apiUrl}/user/current-user`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${accessToken}`,

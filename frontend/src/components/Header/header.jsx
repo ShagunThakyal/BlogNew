@@ -3,10 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';  // Import the add blog icon from React Icons
 import logo from '../../assets/horizontal-logo.png';  // Import the logo from assets
+import { FaWindows } from 'react-icons/fa';
 
 export default function Header() {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();  // Initialize the useNavigate hook
+    const apiUrl = import.meta.env.VITE_API_URL;
+
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -17,7 +20,7 @@ export default function Header() {
             }
 
             try {
-                const response = await fetch('http://localhost:3000/api/v1/user/current-user', {
+                const response = await fetch(`${apiUrl}/user/current-user`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${accessToken}`,
@@ -41,7 +44,7 @@ export default function Header() {
 
     const handleLogout = async () => {
         try {
-            await fetch('http://localhost:3000/api/v1/user/logout', {
+            await fetch(`${apiUrl}/user/logout`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,6 +56,7 @@ export default function Header() {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             navigate('/');  // Redirect to home page after logout
+            window.location.reload();
 
         } catch (error) {
             console.error('Error logging out:', error);
