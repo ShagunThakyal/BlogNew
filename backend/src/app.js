@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Your frontend origin
+  origin: 'https://blog-new-one.vercel.app', // Your frontend origin
   credentials: true, // Allow credentials (cookies, headers, etc.)
 };
 
