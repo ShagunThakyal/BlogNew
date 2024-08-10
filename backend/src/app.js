@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 
-const allowedOrigins = ['blog-new-one.vercel.app']; // List of allowed origins
+const allowedOrigins = ['blog-new-one.vercel.app','https://localhost:5173']; // List of allowed origins
 
 app.use(cors({
     origin: function (origin, callback) {
