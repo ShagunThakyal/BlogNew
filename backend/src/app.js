@@ -5,19 +5,8 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 
-const allowedOrigins = ['blog-new-one.vercel.app','https://localhost:5173']; // List of allowed origins
+app.use(cors({ origin: '*' }));
 
-app.use(cors({
-    origin: function (origin, callback) {
-        // Check if the incoming origin is in the allowedOrigins list or if no origin (server-to-server request)
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-}));
 
 app.use(express.json({limit: "20kb"})); // help to parse incoming req and extract things from request
 app.use(express.urlencoded({extended: true, limit:"20kb"}))
